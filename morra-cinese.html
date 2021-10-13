@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Morra</title>
+    <style>
+      html {
+        font-family: Calibri;
+
+      }
+      body {
+        padding:20px;
+      }
+      h1 {
+        font-size:40px;        
+      }
+      table, tr, th, td {
+        border:solid 1px black;
+        border-collapse: collapse;
+      }
+      table {
+        border:solid 2px black;
+      }
+      th {
+        background-color: lightcyan;
+      }
+      td,th {
+        padding:10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Morra cinese</h1>
+    <p>
+      Usa questa pagina per giocare 
+      a morra cinese
+    </p>
+    <p>
+      Nome del giocatore : 
+      <input onchange="nameChanged(this.value)" id="name"></input>
+
+    </p>
+    <p>
+      <button onclick="gioca(0)">Carta</button>
+      <button onclick="gioca(1)">Forbice</button>
+      <button onclick="gioca(2)">Sasso</button>
+    </p>
+
+    <table id="tbl">
+      <tr>
+        <th>Mossa giocatore</th>
+        <th>Mossa computer</th>
+        <th>risultato</th>
+      </tr>
+    </table>
+
+    <script>
+
+      let nomeGiocatore = "";
+      let tbl = document.getElementById('tbl');
+      const mosse = ['Carta', 'Forbice', 'Sasso'];
+
+      function nameChanged(name)
+      {
+        // console.log("Ciao, Martina. Io sono " + name);
+        nomeGiocatore = name;
+      }
+
+      function aggiungiRiga(mossaGiocatore, mossaComputer, risultato) {
+        let tr = document.createElement('tr');
+        tr.innerHTML = 
+          "<td>"+mosse[mossaGiocatore]+"</td>"+
+          "<td>"+mosse[mossaComputer]+"</td>"+
+          "<td>"+risultato+"</td>";
+        tbl.appendChild(tr);
+      }
+
+      function gioca(mossaGiocatore)
+      {
+        let mossaComputer = Math.floor(Math.random()*3);
+        let result;
+        if(mossaComputer == (mossaGiocatore+1)%3) {
+          result = "Vince il computer";
+        } else if(mossaGiocatore == (mossaComputer+1)%3) {
+          result = "Vince " + nomeGiocatore;
+        }
+        else
+        {
+          result = "Patta";
+        }
+        //console.log(mossaGiocatore, mossaComputer, result);
+        aggiungiRiga(mossaGiocatore, mossaComputer, result)
+
+      }
+
+
+    </script>
+
+  </body>
+</html>
